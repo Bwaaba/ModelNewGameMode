@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width">
+    <title> Partie en cours </title>
+    <link rel="stylesheet" href="treant-js-master/Treant.css">
+    <link rel="stylesheet" href="treant-js-master/examples/collapsable/collapsable.css">
+    <link rel="stylesheet" href="treant-js-master/vendor/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        body{
+            background-color: lightsteelblue;
+        }
+        div.chart{
+            top: 0px;
+            border: groove black 2px;
+            width: 200px;
+            height: 400px;
+        }
+
+        #formule{
+
+        }
+
+        #buttons{
+            border: ridge 4mm ghostwhite;
+        }
+
+        button{
+            padding: 20px;
+            margin: 20px;
+        }
+
+        #currentformule{
+            height: 50px;
+            width: 200px;
+            background-color: cornflowerblue;
+           
+            margin: 80px auto;
+            
+        }
+
+        #currentformule p{
+            text-align:center; 
+             vertical-align: middle;
+             font-size: 40px;
+            
+        }
+
+        #wrapformule{
+
+            float: right;
+            border: solid 5px black;
+            width: 70%;
+            margin: auto;
+            height: 400px;
+           
+        }
+
+        p{
+            border: solid red 3px;
+        }
+    </style>
+</head>
+<body>
+    <div id="buttons">
+        <button class="myButton">Open window for tree</button>
+        <button class="myButton" id="new-exp">New Expression</button>
+        <button class="myButton">Save Game</button>
+        <button class="myButton">Load Game</button>
+    </div>
+    
+    <div id="wrapformule">
+            <div id="currentformule"> <p id="formule">x+a-b</p></div>
+    </div>
+    
+   
+    <div class="chart" id="collapsable-example"></div>
+    <script src="treant-js-master/vendor/raphael.js"></script>
+    <script src="treant-js-master/Treant.js"></script>
+    
+    <script src="treant-js-master/vendor/jquery.min.js"></script>
+    <script src="treant-js-master/vendor/jquery.easing.js"></script>
+    
+    
+    <script src="partie.js"></script>
+    <script>
+
+        tree = new Treant( chart_config );
+        pformule  = document.querySelector('p#formule');
+
+        document.querySelector('button#new-exp').addEventListener('click',function(){
+                console.log("new exp");
+                console.log(pformule.innerHTML);
+             
+        });   
+
+        var nodes = document.getElementsByClassName("node");
+
+        for(var i = 0; i < nodes.length; i++) {
+                 nodes[i].addEventListener('click',nodeclick(nodes[i]));
+        }
+
+        function nodeclick(elt){
+            newf = elt.querySelector('.node-name');
+            pformule.innerHTML = newf.innerHTML;
+            console.log("node selected");
+            console.log(newf);
+        }
+
+        var pnodes = document.getElementsByClassName("node-name");//querySelector('p.node-name');
+        console.log("pnodes = ",pnodes);
+        for(var i = 0; i < pnodes.length; i++) {
+                pnodes[i].addEventListener('contexmenu',function(){
+                    pformule.innerHTML = this.innerHTML;
+                    console.log("paragraphe node selected");
+                    console.log(this);
+                });
+         }
+        /*document.querySelector('div.node').addEventListener('click',function(){
+            newf = this.getElementsByTagName("name");
+            pformule.innerHTML = 'coucou';
+            console.log("node selected");
+        });*/
+
+    </script>
+</body>
+</html>

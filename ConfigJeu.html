@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Configuration de la partie</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <link rel="stylesheet" href="style.css" />
+ </head>
+ 
+<body>
+    <form id="frule">
+        <div>
+                <label>Rules</label>
+                <input type="text" id="rulefile"/>
+                <button  type="button" class="myButton" >Add File</button>
+        </div>
+            
+    </form>
+    <form id="fgraphics">
+            <div>
+                    <label>Graphics</label>
+                    <input type="text" id="graphicsfile"/>
+                    <button  type="button" class="myButton">Add File</button>
+            </div>
+        </form>
+    <form id="foperators">
+        <div>
+                <label>Opreators</label>
+                <input type="text" id="operatorsfile"/>
+                <button  type="button" class="myButton">Add File</button>
+        </div>
+    </form>
+    <form id="fcustomrules">
+        <div>
+                <label>CustomRules</label>
+                <input type="text" id="customrulesfile"/>
+                <button  type="button" class="myButton">Add File</button>
+        </div>
+    </form>
+    <!-- <form id="fexpression">
+        <div>
+                <label>Expression</label>
+                <input type="text" id="expression"/>
+                <button  type="button">Add File</button>
+        </div>
+    </form> -->
+    <button  type="button" id="btn-save">No save</button>
+    <div id="div-save">
+        <label>Saved File</label>
+        <input type="text" id="savedFile"/>
+        <button  type="button" class="myButton" >Add File</button>
+    </div>
+ 
+    <button type="button" id="validation" class="myButton"> Validation </button>
+   
+    <script>
+      require('./jeu.js');
+     
+      
+    </script>
+</body>
+</html>
