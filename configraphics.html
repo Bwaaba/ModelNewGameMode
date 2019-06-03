@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- <script src="https://unpkg.com/konva@3.2.6/konva.min.js"></script> -->
+    <meta charset="utf-8" />
+    <title>Configuration Graphics</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+       /*overflow: hidden;*/
+        
+      }
+       
+      #area{
+        top:-200px;
+        border: solid red 4px;
+      }
+       /*.responsive-canvas .konvajs-content {
+          background: yellow;
+          width: 100% !important;
+          height: auto !important;
+          padding-bottom: 75%;
+        }
+          .responsive-canvas .konvajs-content canvas {
+              width: 100% !important;
+              height: 100% !important;
+          }*/
+    
+
+    </style>
+  </head>
+
+  <body>
+   
+    <div id="responsive-canvas"></div>
+    <div id="area">
+      <label>Rules file: </label> 
+      <button class="myButton1" id="askfile-load">Load File </button>
+      <button class="myButton1" id="next-step">Next Step</button> 
+      <button class="myButton1" >Save as file</button></br>
+      <textarea rows = "20" cols = "100" name = "description" id="areafile">
+        Write your rules
+     </textarea>
+    
+    
+    </div>
+    <script src="functionconfiggraphique.js"></script>
+    <script>
+            const electron = require('electron');
+            const {ipcRenderer} = electron;
+            const fs = require('fs');
+            
+          
+          // detection des clicks boutton avec injection du contenu dans le champ (recuperation de la valeur par le main process)
+            document.querySelector('button#askfile-load').addEventListener('click',function(){
+              ipcRenderer.send('askfile-load');
+              
+            
+            });
+
+            ipcRenderer.on('repfileload',function(event,arg){
+              
+              //document.getElementById("areafile").value = arg;
+              const myarea = document.getElementById("areafile");
+              fs.readFile(arg[0], 'ASCII', (err, data) => {
+                    if(err){
+                        alert("An error ocurred reading the file :" + err.message);
+                        return;
+                    }
+
+                    // Change how to handle the file content
+                    console.log("The file content is : " + data);
+                    document.getElementById("areafile").value = data;
+                });
+
+          });
+    
+       document.querySelector('#next-step').addEventListener('click',function(){
+
+        window.location='configoperators.html';
+        });
+    
+          var arrow1 = makeArrow([0, 0, recwitharrow, 0, recwitharrow+rightnosearrow, recheightarrow/2,recwitharrow,recheightarrow, 0, recheightarrow, 0,0],
+          '#3EFF90','black',1);
+          
+          var arrow2 =  makeArrow([recwitharrow,0 , 2*recwitharrow, 0, 2*recwitharrow+rightnosearrow, recheightarrow/2,2*recwitharrow,recheightarrow, recwitharrow, recheightarrow, recwitharrow+rightnosearrow,recheightarrow/2,recwitharrow,0],
+          'blue','black',1);
+    
+          var arrow3 =  makeArrow([recwitharrow*2,0 , 3*recwitharrow, 0, 3*recwitharrow+rightnosearrow, recheightarrow/2,3*recwitharrow,recheightarrow, 2*recwitharrow, recheightarrow, 2*recwitharrow+rightnosearrow,recheightarrow/2,recwitharrow*2,0],
+          'red','black',1);
+    
+          var arrow4 =  makeArrow([recwitharrow*3,0 , 4*recwitharrow, 0, 4*recwitharrow+rightnosearrow, recheightarrow/2,4*recwitharrow,recheightarrow, 3*recwitharrow, recheightarrow, 3*recwitharrow+rightnosearrow,recheightarrow/2,recwitharrow*3,0],
+          'red','black',1);
+        
+    
+          window.onresize= function(){
+            w = window;
+            
+            recwitharrow = w.innerWidth/4;
+            
+            // redessine les flèche
+            arrow1.destroy();
+            arrow1 = makeArrow([0, 0, recwitharrow, 0, recwitharrow+rightnosearrow, recheightarrow/2,recwitharrow,recheightarrow, 0, recheightarrow, 0,0],
+          '#3EFF90','black',1);
+          
+            
+
+            arrow2.destroy();
+            arrow2 = makeArrow([recwitharrow,0 , 2*recwitharrow, 0, 2*recwitharrow+rightnosearrow, recheightarrow/2,2*recwitharrow,recheightarrow, recwitharrow, recheightarrow, recwitharrow+rightnosearrow,recheightarrow/2,recwitharrow,0],
+          'blue','black',1);
+
+
+            arrow3.destroy();
+            arrow3 = makeArrow([recwitharrow*2,0 , 3*recwitharrow, 0, 3*recwitharrow+rightnosearrow, recheightarrow/2,3*recwitharrow,recheightarrow, 2*recwitharrow, recheightarrow, 2*recwitharrow+rightnosearrow,recheightarrow/2,recwitharrow*2,0],
+          'red','black',1);
+
+            arrow4.destroy();
+            arrow4 = makeArrow([recwitharrow*3,0 , 4*recwitharrow, 0, 4*recwitharrow+rightnosearrow, recheightarrow/2,4*recwitharrow,recheightarrow, 3*recwitharrow, recheightarrow, 3*recwitharrow+rightnosearrow,recheightarrow/2,recwitharrow*3,0],
+          'red','black',1);
+            // remet les textes
+            complexText.destroy();
+            complexText = makecomplextype(decstage+recwitharrow/2,30,"Rules",25,'black',300);
+
+            complexText2.destroy();
+            complexText2 = makecomplextype(recwitharrow*1.5+decstage,30,"Graphics",25,'black',300);
+
+            complexText3.destroy();
+            complexText3 = makecomplextype(recwitharrow*2.5+decstage,30,"Operators",25,'black',300);
+
+            complexText4.destroy();
+            complexText4 = makecomplextype(recwitharrow*3.5+decstage,30,"Custom",25,'black',300);
+
+
+            layer.add(arrow1);
+            layer.add(arrow2);
+            layer.add(arrow3);
+            layer.add(arrow4);
+            layer.add(complexText);
+            layer.add(complexText2);
+            layer.add(complexText3);
+            layer.add(complexText4);
+            layer.draw();
+          }
+    
+         
+
+
+          layer.add(arrow1);
+          layer.add(arrow2);
+          layer.add(arrow3);
+          layer.add(arrow4);
+    
+          layer.add(complexText);
+          layer.add(complexText2);
+          layer.add(complexText3);
+          layer.add(complexText4);
+          stage.add(layer);
+          
+        </script>
+  </body>
+</html>
